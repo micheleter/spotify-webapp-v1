@@ -1,0 +1,11 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #000044;
+    /* justify-content: flex-start; */
+}
+
+main {
+    justify-content: flex-start;
+}
