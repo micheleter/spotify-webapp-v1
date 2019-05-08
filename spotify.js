@@ -1,31 +1,46 @@
 let request = require("request");
 let user_id = "1265282669";
-let token = "Bearer BQAjAmoPhWSdzEnKlCzMjQnkx449cGB9f2TP8e0vWwthLWE1UZFdBHBk9THNBJLVoEP6vtvSr4eORLdIIX10LjlJuWiST_yh4ggt2Z5b9xmOP-9RiCe32OdxWi3gs07Eq0FotjEb3B3pl9AVsDDJ";
+let token = "Bearer BQAPdK8z01RVjCgcnV4JJirgA8QAszcbJ99u94wdyCn6P_x7Q5EzYr4bS3S5gee4EDjl-0tM_c0-ZwEH45Yciu5GGOnQx5w6agDRHFPiGBz3OYgs2iEiDfxEGQTSS3Y2_zZsYELthPvxIclebFJa";
 let playlist_url = "https://api.spotify.com/v1/users/" + user_id + "/playlists";
 
-request({url: playlist_url,headers: {"Authorization": token}},function (err, res) {
-        if (res) {
-            let playlists = JSON.parse(res.body);
-            // console.log(JSON.stringify(playlists.items, null, " "));
-            let playlist_url = playlists.items[0].href;
-            request({url: playlist_url,headers: {"Authorization": token}},function (err, res) {
-                    if (res) {
-                        let playlist = JSON.parse(res.body);
-                        console.log("playlists: " + playlist.name);
-                        playlist.tracks.items.forEach(function(track) {
-                            console.log(track.track.name);
-                        });
-                        console.log(playlist.tracks.items.length);
-                    }
-            });
-        }
+function showTracks() {
+    let tracksDisplay = document.getElementsByClassName("tracksDisplay")[0];
+}
+
+request({
+    url: playlist_url,
+    headers: {
+        "Authorization": token
+    }
+}, function (err, res) {
+    if (res) {
+        let playlists = JSON.parse(res.body);
+        console.log(JSON.stringify(playlists.items, null, " "));
+        let playlist_url = playlists.items[0].href;
+        request({
+            url: playlist_url,
+            headers: {
+                "Authorization": token
+            }
+        }, function (err, res) {
+            if (res) {
+                let playlist = JSON.parse(res.body);
+                console.log("playlists: " + playlist.name);
+                playlist.tracks.items.forEach(function (track) {
+                    console.log(track.track.name + ' xx ' + track.track.artist);
+                });
+                console.log(playlist.tracks.items.length);
+            }
+        });
+    }
 });
+
 
 
 
 /*
 
-curl -H "Authorization: Basic ZmIwYWUwODg3NDFiNDZiMGIyZTVkNGY0NDI1NmY0OTQ6ZDg3ZDA1MGQzYjI0NDhmNTkxNWYzZjdiMGRiYjVhNmM=" -d grant_type=authorization_code -d code=AQBdyxmMcfXrBhcktRV7Ddpf7Q3X7e-Jn8Srcl0c1yxIYL0X-UeP3e1GIlG-PQ4Om4E8PIGUVIkrP6xL2LVlbn51C0057hgriVua_4b5GCaTmjG_u6994W_Vn-YJAKdZ3AM5Q7lBoyortsG43drR8o2BVxuBy4oNShQW1ijXgvJuqCPd4KMmOhdtnwbjQf5AiJoRlaY -d redirect_uri=https%3A%2F%2Fmicheleter.github.io%2F https://accounts.spotify.com/api/token
+curl -H "Authorization: Basic ZmIwYWUwODg3NDFiNDZiMGIyZTVkNGY0NDI1NmY0OTQ6ZDg3ZDA1MGQzYjI0NDhmNTkxNWYzZjdiMGRiYjVhNmM=" -d grant_type=authorization_code -d code=AQBbde_7ebVSyLuVNvEXUCYFKLfbQeKx--pdcSDTdPCz-nXzu68ZQzvu35jSJ0tYOSiNKOZCpjM8wbeWDyxvBxpe2WAcDQYGJLnwi0oDi1Gwp1xh8qDhtQGICqTHyhkvQO8FL9WXhDk2QkQSJGUkyA2Ry45pkJHASLeIBVRcXdmpFM3aJxMiBMLZYDgNMx5smS_Pkgo -d redirect_uri=https%3A%2F%2Fmicheleter.github.io%2F https://accounts.spotify.com/api/token
 
 https://accounts.spotify.com/authorize?client_id=fb0ae088741b46b0b2e5d4f44256f494&scopes=playlist-read-private&response_type=code&redirect_uri=https%3A%2F%2Fmicheleter.github.io%2F
 

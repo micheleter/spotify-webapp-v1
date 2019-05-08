@@ -2,10 +2,31 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #000044;
-    /* justify-content: flex-start; */
+    background-color: rgb(130, 130, 130);
+    color: white;
+    font-family: 'Baloo Bhai';
+    margin: 0;
+
 }
 
 main {
     justify-content: flex-start;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(60, 60, 60);
+    font-size: 2em;
+    padding-left: 5%;
+    height: 15vh;
+}
+
+h2 {
+    margin: 0%;
+}
+
+span#spotify-word {
+    color: rgb(132, 189, 0);
 }
